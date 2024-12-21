@@ -1,4 +1,9 @@
 import { create } from 'zustand'
+import { api } from '../lib/api'
+
+interface AuthResponse {
+    token: string
+}
 
 interface AuthState {
     isAuthenticated: boolean
@@ -13,17 +18,9 @@ export const useAuthStore = create<AuthState>((set) => ({
     user: null,
     login: async (username: string, password: string) => {
         try {
-            const response = await fetch('http://localhost:8000/api/user/login/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username, password }),
-            })
-
-            if (response.ok) {
-                const data = await response.json()
-                localStorage.setItem('token', data.token)
+            const response = await api.post<AuthResponse>('/user/login/', { username, password })
+            if (response.data) {
+                localStorage.setItem('token', response.data.token)
                 set({ isAuthenticated: true, user: { username } })
                 return true
             }
@@ -35,17 +32,9 @@ export const useAuthStore = create<AuthState>((set) => ({
     },
     signup: async (username: string, email: string, password: string) => {
         try {
-            const response = await fetch('http://localhost:8000/api/user/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username, email, password }),
-            })
-
-            if (response.ok) {
-                const data = await response.json()
-                localStorage.setItem('token', data.token)
+            const response = await api.post<AuthResponse>('/user/', { username, email, password })
+            if (response.data) {
+                localStorage.setItem('token', response.data.token)
                 set({ isAuthenticated: true, user: { username } })
                 return true
             }
@@ -58,6 +47,6 @@ export const useAuthStore = create<AuthState>((set) => ({
     logout: () => {
         localStorage.removeItem('token')
         set({ isAuthenticated: false, user: null })
-        fetch('http://localhost:8000/api/user/logout/', { method: 'POST' }).catch(console.error)
+        api.post('/user/logout/').catch(console.error)
     },
 }))
