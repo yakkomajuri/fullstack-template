@@ -5,7 +5,7 @@ import {
   SettingOutlined,
   LogoutOutlined,
 } from '@ant-design/icons'
-import { useAuthStore } from '../store/authStore'
+import { useAuthStore } from '@/store/authStore'
 
 const { Header, Sider, Content } = Layout
 const { Title } = Typography
@@ -95,6 +95,8 @@ const Dashboard = () => {
                 <p>No recent activity to display.</p>
               </Card>
             </Col>
+            
+
           </Row>
         </Content>
       </Layout>
