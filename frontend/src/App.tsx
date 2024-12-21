@@ -6,28 +6,28 @@ import { useAuthStore } from './store/authStore'
 import './App.css'
 
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
-  return isAuthenticated ? children : <Navigate to="/login" />
+    const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
+    return isAuthenticated ? children : <Navigate to="/login" />
 }
 
 function App() {
-  return (
-    <ConfigProvider>
-      <Router>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route
-            path="/"
-            element={
-              <PrivateRoute>
-                <Dashboard />
-              </PrivateRoute>
-            }
-          />
-        </Routes>
-      </Router>
-    </ConfigProvider>
-  )
+    return (
+        <ConfigProvider>
+            <Router>
+                <Routes>
+                    <Route path="/login" element={<Login />} />
+                    <Route
+                        path="/"
+                        element={
+                            <PrivateRoute>
+                                <Dashboard />
+                            </PrivateRoute>
+                        }
+                    />
+                </Routes>
+            </Router>
+        </ConfigProvider>
+    )
 }
 
 export default App

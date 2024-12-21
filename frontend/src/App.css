@@ -1,29 +1,29 @@
 #root {
-  width: 100%;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  min-height: 100vh;
+    min-height: 100vh;
 }
 
 /* Remove all the default Vite styles */
 .logo {
-  display: none;
+    display: none;
 }
 
 .card {
-  display: none;
+    display: none;
 }
 
 .read-the-docs {
-  display: none;
+    display: none;
 }
