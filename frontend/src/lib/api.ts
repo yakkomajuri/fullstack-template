@@ -12,7 +12,7 @@ interface ApiResponse<T = any> {
     error?: string
 }
 
-const LOCAL_URL = 'http://localhost:8000'
+const LOCAL_URL = 'http://localhost:8000';
 
 const runningLocally = window.location.hostname === 'localhost'
 export const domain = runningLocally ? LOCAL_URL : process.env.REACT_APP_REMOTE_URL
