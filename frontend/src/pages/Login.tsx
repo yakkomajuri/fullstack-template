@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Form, Input, Button, Card, message } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import { useAuthStore } from '../store/authStore'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 const Login = () => {
     const [loading, setLoading] = useState(false)
@@ -36,7 +36,7 @@ const Login = () => {
         >
             <Card style={{ width: 400, boxShadow: '0 4px 8px rgba(0,0,0,0.1)' }}>
                 <h1 style={{ textAlign: 'center', marginBottom: 24 }}>Welcome Back</h1>
-                <Form name="login" initialValues={{ remember: true }} onFinish={onFinish} size="large">
+                <Form name="login" onFinish={onFinish} size="large">
                     <Form.Item name="username" rules={[{ required: true, message: 'Please input your username!' }]}>
                         <Input prefix={<UserOutlined />} placeholder="Username" />
                     </Form.Item>
@@ -50,6 +50,10 @@ const Login = () => {
                             Log in
                         </Button>
                     </Form.Item>
+
+                    <div style={{ textAlign: 'center' }}>
+                        Don't have an account? <Link to="/signup">Sign up</Link>
+                    </div>
                 </Form>
             </Card>
         </div>

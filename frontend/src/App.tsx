@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { ConfigProvider } from 'antd'
 import Login from './pages/Login'
+import Signup from './pages/Signup'
 import Dashboard from './pages/Dashboard'
 import { useAuthStore } from './store/authStore'
 import './App.css'
@@ -10,12 +11,32 @@ const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
     return isAuthenticated ? children : <Navigate to="/login" />
 }
 
+const PublicRoute = ({ children }: { children: React.ReactNode }) => {
+    const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
+    return isAuthenticated ? <Navigate to="/" /> : children
+}
+
 function App() {
     return (
         <ConfigProvider>
             <Router>
                 <Routes>
-                    <Route path="/login" element={<Login />} />
+                    <Route
+                        path="/login"
+                        element={
+                            <PublicRoute>
+                                <Login />
+                            </PublicRoute>
+                        }
+                    />
+                    <Route
+                        path="/signup"
+                        element={
+                            <PublicRoute>
+                                <Signup />
+                            </PublicRoute>
+                        }
+                    />
                     <Route
                         path="/"
                         element={

@@ -12,7 +12,7 @@ User = get_user_model()
 class InternalUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["username", "bio", "password", "email"]
+        fields = ["username", "password", "email"]
 
         extra_kwargs = {"password": {"write_only": True}}
 
@@ -22,8 +22,6 @@ class InternalUserSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-
-    email_hash = serializers.SerializerMethodField()
 
     class Meta:
         model = User
