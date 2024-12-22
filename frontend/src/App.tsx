@@ -3,6 +3,8 @@ import { useEffect } from 'react'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Dashboard from './pages/Dashboard'
+import { Profile } from './pages/Profile'
+import { Settings } from './pages/Settings'
 import { useAuthStore } from './store/authStore'
 
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
@@ -46,6 +48,22 @@ function App() {
                     element={
                         <PrivateRoute>
                             <Dashboard />
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path="/profile"
+                    element={
+                        <PrivateRoute>
+                            <Profile />
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path="/settings"
+                    element={
+                        <PrivateRoute>
+                            <Settings />
                         </PrivateRoute>
                     }
                 />
