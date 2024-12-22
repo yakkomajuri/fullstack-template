@@ -1,6 +1,6 @@
 import { Layout } from 'antd'
-import { Header } from './Header'
-import { Sider } from './Sider'
+import { Header } from '@/components/AppLayout/Header'
+import { Sider } from '@/components/AppLayout/Sider'
 
 const { Content } = Layout
 
