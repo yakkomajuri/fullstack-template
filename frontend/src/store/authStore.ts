@@ -19,19 +19,10 @@ interface AuthState {
     initializeAuth: () => Promise<void>
 }
 
-// Function to check if there's a valid token and get user details
-const validateToken = async () => {
-    const token = localStorage.getItem('token')
-    if (!token) return null
-
-    try {
-        const response = await api.get<UserDetails>('/user/details/')
-        if (response.data) {
-            return response.data
-        }
-    } catch (error) {
-        console.error('Token validation failed:', error)
-        localStorage.removeItem('token')
+const fetchUserDetails = async () => {
+    const response = await api.get<UserDetails>('/user/details/')
+    if (response.data) {
+        return response.data
     }
     return null
 }
@@ -40,7 +31,7 @@ export const useAuthStore = create<AuthState>((set) => ({
     isAuthenticated: false,
     user: null,
     initializeAuth: async () => {
-        const userDetails = await validateToken()
+        const userDetails = await fetchUserDetails()
         if (userDetails) {
             set({ isAuthenticated: true, user: { username: userDetails.username } })
         }
@@ -63,7 +54,6 @@ export const useAuthStore = create<AuthState>((set) => ({
         try {
             const response = await api.post<AuthResponse>('/user/', { username, email, password })
             if (response.data) {
-                localStorage.setItem('token', response.data.token)
                 set({ isAuthenticated: true, user: { username } })
                 return true
             }
@@ -74,7 +64,6 @@ export const useAuthStore = create<AuthState>((set) => ({
         }
     },
     logout: () => {
-        localStorage.removeItem('token')
         set({ isAuthenticated: false, user: null })
         api.post('/user/logout/').catch(console.error)
     },
