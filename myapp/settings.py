@@ -83,7 +83,7 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.BasicAuthentication",
         "rest_framework.authentication.SessionAuthentication",
     ),
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAdminUser",),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.AllowAny",),
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -185,6 +185,7 @@ CSRF_TRUSTED_ORIGINS = [
     "https://app.<my_app>.com",
     "http://localhost:8000",
     "http://localhost:3000",
+    "http://localhost:5173",
 ]
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")

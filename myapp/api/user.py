@@ -37,12 +37,12 @@ class UserSerializer(serializers.ModelSerializer):
 
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
+    permission_classes = [AllowAny]  # Default permission for all actions
 
     permission_classes_by_action = {
-        "create": [AllowAny],
-        "login": [AllowAny],
         "logout": [IsAuthenticated],
         "details": [IsAuthenticated],
+        "change_password": [IsAuthenticated],
     }
 
     def get_permissions(self):
@@ -52,7 +52,7 @@ class UserViewSet(viewsets.ModelViewSet):
                 for permission in self.permission_classes_by_action[self.action]
             ]
         except KeyError:
-            return [IsAdminUser()]
+            return [permission() for permission in self.permission_classes]
 
     def create(self, request):
         serializer = InternalUserSerializer(data=request.data)

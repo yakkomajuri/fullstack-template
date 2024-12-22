@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosError, AxiosRequestHeaders } from 'axios'
+import axios, { AxiosRequestConfig, AxiosError, AxiosRequestHeaders, InternalAxiosRequestConfig } from 'axios'
 
 axios.defaults.withCredentials = true
 
@@ -12,7 +12,7 @@ interface ApiResponse<T = any> {
     error?: string
 }
 
-const LOCAL_URL = 'http://localhost:8000';
+const LOCAL_URL = 'http://localhost:8000'
 
 const runningLocally = window.location.hostname === 'localhost'
 export const domain = runningLocally ? LOCAL_URL : process.env.REACT_APP_REMOTE_URL
@@ -21,14 +21,46 @@ console.log('API URL:', domain)
 
 const baseUrl = `${domain}/api`
 
-const makeRequest = async <T>(requestConfig: AxiosRequestConfig): Promise<ApiResponse<T>> => {
+const getCookie = (cookieName: string) => {
+    let cookieValue = null
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';')
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim()
+            if (cookie.substring(0, cookieName.length + 1) === cookieName + '=') {
+                cookieValue = decodeURIComponent(cookie.substring(cookieName.length + 1))
+                break
+            }
+        }
+    }
+    return cookieValue
+}
+
+axios.interceptors.request.use(
+    (config: InternalAxiosRequestConfig) => {
+        if (config.method !== 'get') {
+            const csrfToken = getCookie('csrftoken')
+            if (csrfToken) {
+                config.headers.set('X-Csrftoken', csrfToken)
+            }
+        }
+
+        return config
+    },
+    (error) => {
+        return Promise.reject(error)
+    }
+)
+
+const makeRequest = async <T>(requestConfig: ApiConfig): Promise<ApiResponse<T>> => {
     try {
         const response = await axios(requestConfig)
         return { data: response.data }
     } catch (error) {
         let errorStr = String(error)
         if (error instanceof AxiosError) {
-            errorStr = error.response?.data.error || `Status code: ${error.response?.status}`
+            errorStr =
+                error.response?.data.error || error.response?.data?.detail || `Status code: ${error.response?.status}`
         }
         return { error: errorStr }
     }

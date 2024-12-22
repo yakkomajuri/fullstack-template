@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { ConfigProvider } from 'antd'
+import { useEffect } from 'react'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Dashboard from './pages/Dashboard'
@@ -17,6 +18,12 @@ const PublicRoute = ({ children }: { children: React.ReactNode }) => {
 }
 
 function App() {
+    const initializeAuth = useAuthStore((state) => state.initializeAuth)
+
+    useEffect(() => {
+        initializeAuth()
+    }, [initializeAuth])
+
     return (
         <ConfigProvider>
             <Router>
