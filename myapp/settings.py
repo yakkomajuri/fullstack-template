@@ -94,6 +94,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://api.<myapp>.com",
     "http://localhost:8000",
     "http://localhost:3000",
+    "http://localhost:5173",
 ]
 
 ROOT_URLCONF = "myapp.urls"
