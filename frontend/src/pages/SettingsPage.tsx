@@ -1,10 +1,10 @@
 import { AppLayout } from '@/components/AppLayout/AppLayout'
 
-export const Profile = () => {
+export const SettingsPage = () => {
     return (
         <AppLayout>
             <div className="p-6">
-                <p>Your profile information will be displayed here.</p>
+                <p>Your application settings will be displayed here.</p>
             </div>
         </AppLayout>
     )

@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { useEffect } from 'react'
-import Login from '@/pages/Login'
-import Signup from '@/pages/Signup'
-import Dashboard from '@/pages/Dashboard'
-import { Profile } from '@/pages/Profile'
-import { Settings } from '@/pages/Settings'
+import { LoginPage } from '@/pages/LoginPage'
+import { SignupPage } from '@/pages/SignupPage'
+import { DashboardPage } from '@/pages/DashboardPage'
+import { ProfilePage } from '@/pages/ProfilePage'
+import { SettingsPage } from '@/pages/SettingsPage'
 import { useAuthStore } from '@/store/authStore'
 
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
@@ -31,7 +31,7 @@ function App() {
                     path="/login"
                     element={
                         <PublicRoute>
-                            <Login />
+                            <LoginPage />
                         </PublicRoute>
                     }
                 />
@@ -39,7 +39,7 @@ function App() {
                     path="/signup"
                     element={
                         <PublicRoute>
-                            <Signup />
+                            <SignupPage />
                         </PublicRoute>
                     }
                 />
@@ -47,7 +47,7 @@ function App() {
                     path="/"
                     element={
                         <PrivateRoute>
-                            <Dashboard />
+                            <DashboardPage />
                         </PrivateRoute>
                     }
                 />
@@ -55,7 +55,7 @@ function App() {
                     path="/profile"
                     element={
                         <PrivateRoute>
-                            <Profile />
+                            <ProfilePage />
                         </PrivateRoute>
                     }
                 />
@@ -63,7 +63,7 @@ function App() {
                     path="/settings"
                     element={
                         <PrivateRoute>
-                            <Settings />
+                            <SettingsPage />
                         </PrivateRoute>
                     }
                 />

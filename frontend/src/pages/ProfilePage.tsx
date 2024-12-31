@@ -1,13 +1,11 @@
 import { AppLayout } from '@/components/AppLayout/AppLayout'
 
-export const Settings = () => {
+export const ProfilePage = () => {
     return (
         <AppLayout>
             <div className="p-6">
-                <p>Your application settings will be displayed here.</p>
+                <p>Your profile information will be displayed here.</p>
             </div>
         </AppLayout>
     )
 }
-
-export default Settings

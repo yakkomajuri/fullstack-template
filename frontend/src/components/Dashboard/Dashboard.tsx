@@ -1,10 +1,9 @@
 import { Card, Row, Col, Statistic } from 'antd'
 import { DashboardOutlined, UserOutlined } from '@ant-design/icons'
-import { AppLayout } from '@/components/AppLayout/AppLayout'
 
-const Dashboard = () => {
+export const Dashboard = () => {
     return (
-        <AppLayout>
+        <div>
             <Row gutter={[16, 16]}>
                 <Col span={8}>
                     <Card>
@@ -29,8 +28,6 @@ const Dashboard = () => {
                     </Card>
                 </Col>
             </Row>
-        </AppLayout>
+        </div>
     )
 }
-
-export default Dashboard

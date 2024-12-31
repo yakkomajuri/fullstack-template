@@ -4,7 +4,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import { useAuthStore } from '@/store/authStore'
 import { useNavigate, Link } from 'react-router-dom'
 
-const Login = () => {
+export const LoginPage = () => {
     const [loading, setLoading] = useState(false)
     const login = useAuthStore((state) => state.login)
     const navigate = useNavigate()
@@ -59,5 +59,3 @@ const Login = () => {
         </div>
     )
 }
-
-export default Login

@@ -4,7 +4,7 @@ import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons'
 import { useAuthStore } from '@/store/authStore'
 import { useNavigate, Link } from 'react-router-dom'
 
-const Signup = () => {
+export const SignupPage = () => {
     const [loading, setLoading] = useState(false)
     const signup = useAuthStore((state) => state.signup)
     const navigate = useNavigate()
@@ -90,5 +90,3 @@ const Signup = () => {
         </div>
     )
 }
-
-export default Signup
